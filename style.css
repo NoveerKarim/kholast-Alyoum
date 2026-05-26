@@ -1,0 +1,692 @@
+ :root {
+    --ink: #0d0d0f;
+    --paper: #f5f0e8;
+    --gold: #c8922a;
+    --gold-light: #e8b84b;
+    --red: #c0392b;
+    --muted: #6b6560;
+    --border: #d4cfc6;
+    --white: #fefcf8;
+    --ad-bg: #edeae3;
+    --ad-border: #ccc9c0;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Noto Naskh Arabic', serif;
+    background: var(--paper);
+    color: var(--ink);
+    overflow-x: hidden;
+  }
+
+  /* ═══════════════════════════════════
+     AD SLOT — shared base styles
+  ═══════════════════════════════════ */
+  .ad-slot {
+    position: relative;
+    background: var(--ad-bg);
+    border: 1px dashed var(--ad-border);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    overflow: hidden;
+  }
+
+  /* label badge */
+  .ad-slot::before {
+    content: 'إعلان';
+    position: absolute;
+    top: 6px;
+    right: 8px;
+    font-family: 'Noto Kufi Arabic', sans-serif;
+    font-size: 9px;
+    color: #999;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  /* placeholder content (remove when real ads run) */
+  .ad-slot .ad-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    pointer-events: none;
+  }
+
+
+
+  .ad-slot .ad-placeholder .ad-icon {
+    font-size: 28px;
+    opacity: 0.25;
+  }
+
+  .ad-slot .ad-placeholder .ad-size {
+    font-family: 'Noto Kufi Arabic', sans-serif;
+    font-size: 11px;
+    color: #aaa;
+  }
+  /* ── 1. LEADERBOARD  728×90 → collapses to 320×50 on mobile ── */
+  .ad-leaderboard {
+    width: 100%;
+    max-width: 728px;
+    height: 90px;
+    margin: 0 auto;
+  }
+
+  @media (max-width: 767px) {
+    .ad-leaderboard {
+      max-width: 320px;
+      height: 50px;
+    }
+  }
+
+  /* wrapper centers the leaderboard */
+  .ad-leaderboard-wrap {
+    background: var(--white);
+    border-bottom: 1px solid var(--border);
+    padding: 10px 0;
+    display: flex;
+    justify-content: center;
+  }
+  .ad-slot .ad-placeholder1 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    pointer-events: none;
+  }
+  /* ── 2. SIDEBAR  300×250  ── */
+  .ad-sidebar {
+    width: 300px;
+    height: 250px;
+  }
+
+  @media (max-width: 1100px) {
+    .ad-sidebar {
+      width: 100%;
+      max-width: 300px;
+    }
+  }
+
+  /* ── 3. IN-ARTICLE  responsive / auto ── */
+  .ad-in-article {
+    width: 100%;
+    height: 280px;
+    max-width: 640px;
+    margin: 0 auto;
+  }
+
+  @media (max-width: 480px) {
+    .ad-in-article { height: 200px; }
+  }
+
+  .ad-in-article-wrap {
+    margin: 32px 0;
+    display: flex;
+    justify-content: center;
+  }
+
+  /* ── 4. BELOW-ARTICLE  970×90 → 320×50 ── */
+  .ad-below-article {
+    width: 100%;
+    max-width: 970px;
+    height: 90px;
+    margin: 0 auto;
+  }
+
+  @media (max-width: 767px) {
+    .ad-below-article {
+      max-width: 320px;
+      height: 50px;
+    }
+  }
+
+  .ad-below-article-wrap {
+    margin: 40px 0 0;
+    padding: 16px 0;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    justify-content: center;
+  }
+
+  /* ── 5. STICKY MOBILE BANNER  320×50 ── */
+  .ad-sticky-mobile {
+    display: none;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 999;
+    background: var(--white);
+    border-top: 2px solid var(--gold);
+    padding: 4px 0;
+    justify-content: center;
+    box-shadow: 0 -4px 12px rgba(0,0,0,0.1);
+  }
+
+  .ad-sticky-mobile .ad-slot {
+    width: 320px;
+    height: 50px;
+    border: none;
+  }
+
+  .ad-sticky-mobile .close-sticky {
+    position: absolute;
+    top: 4px;
+    left: 8px;
+    font-size: 16px;
+    color: var(--muted);
+    cursor: pointer;
+    background: none;
+    border: none;
+    line-height: 1;
+    padding: 2px 6px;
+  }
+
+  @media (max-width: 767px) {
+    .ad-sticky-mobile { display: flex; }
+    body { padding-bottom: 60px; } /* prevent content hiding behind sticky */
+  }
+
+  /* ══════════════════════════════════════
+     SITE CHROME
+  ══════════════════════════════════════ */
+
+  /* MASTHEAD */
+  .masthead {
+    background: var(--ink);
+    border-bottom: 3px solid var(--gold);
+  }
+
+  .masthead-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    padding: 18px 24px;
+  }
+
+  .masthead-date {
+    font-family: 'Noto Kufi Arabic', sans-serif;
+    font-size: 11px;
+    color: var(--muted);
+  }
+
+  .masthead-logo { text-align: center; }
+
+  .masthead-logo h1 {
+    font-family: 'Noto Kufi Arabic', sans-serif;
+    font-weight: 900;
+    font-size: 28px;
+    color: var(--white);
+    letter-spacing: -1px;
+    line-height: 1;
+  }
+
+  .masthead-logo .tagline {
+    font-size: 9px;
+    color: var(--gold);
+    letter-spacing: 3px;
+    margin-top: 3px;
+  }
+
+  .masthead-nav {
+    display: flex;
+    gap: 16px;
+    justify-content: flex-end;
+    align-items: center;
+  }
+
+  .masthead-nav a {
+    color: #999;
+    text-decoration: none;
+    font-family: 'Noto Kufi Arabic', sans-serif;
+    font-size: 12px;
+    transition: color .2s;
+  }
+  .masthead-nav a:hover { color: var(--gold); }
+
+  /* SECTION NAV */
+  .section-nav {
+    background: var(--white);
+    border-bottom: 1px solid var(--border);
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .section-nav::-webkit-scrollbar { display: none; }
+
+  .section-nav ul {
+    list-style: none;
+    display: flex;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  .section-nav ul li a {
+    display: block;
+    padding: 14px 16px;
+    font-family: 'Noto Kufi Arabic', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--ink);
+    text-decoration: none;
+    border-bottom: 3px solid transparent;
+    white-space: nowrap;
+    transition: all .2s;
+  }
+
+  .section-nav ul li a:hover,
+  .section-nav ul li a.active {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+  }
+
+  /* BREAKING TICKER */
+  .ticker {
+    background: var(--red);
+    padding: 8px 0;
+    overflow: hidden;
+  }
+
+  .ticker-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .ticker-label {
+    font-family: 'Noto Kufi Arabic', sans-serif;
+    font-size: 11px;
+    font-weight: 900;
+    color: #fff;
+    background: rgba(0,0,0,0.3);
+    padding: 3px 10px;
+    border-radius: 2px;
+    white-space: nowrap;
+    letter-spacing: 1px;
+  }
+
+  .ticker-text {
+    font-size: 13px;
+    color: #fff;
+    white-space: nowrap;
+    animation: ticker 28s linear infinite;
+  }
+
+  @keyframes ticker {
+    0%   { transform: translateX(-100%); }
+    100% { transform: translateX(100vw); }
+  }
+
+  /* PAGE GRID */
+  .page {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 40px 24px;
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    gap: 48px;
+  }
+
+  /* ARTICLE */
+  .article-section {
+    font-family: 'Noto Kufi Arabic', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--red);
+    letter-spacing: 2px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+
+  .article-section::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--red);
+    opacity: 0.3;
+  }
+
+  .article-headline {
+    font-family: 'Noto Kufi Arabic', sans-serif;
+    font-size: 38px;
+    font-weight: 900;
+    line-height: 1.25;
+    color: var(--ink);
+    margin-bottom: 20px;
+    letter-spacing: -1px;
+    animation: fadeUp .6s ease both;
+  }
+
+  .article-deck {
+    font-size: 17px;
+    line-height: 1.8;
+    color: #444;
+    border-right: 4px solid var(--gold);
+    padding-right: 18px;
+    margin-bottom: 28px;
+    animation: fadeUp .6s .1s ease both;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .article-meta {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 16px 0;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 28px;
+    flex-wrap: wrap;
+  }
+
+  .article-meta .author {
+    font-family: 'Noto Kufi Arabic', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+  }
+
+  .article-meta .author span { color: var(--gold); }
+
+  .article-meta .date {
+    font-size: 12px;
+    color: var(--muted);
+    margin-right: auto;
+  }
+
+  .share-btns { display: flex; gap: 8px; }
+
+  .share-btn {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 13px;
+    color: var(--muted);
+    transition: all .2s;
+    text-decoration: none;
+  }
+
+  .share-btn:hover {
+    background: var(--gold);
+    color: white;
+    border-color: var(--gold);
+  }
+
+  .hero-img {
+    width: 100%;
+    aspect-ratio: 16/9;
+    object-fit: cover;
+    border: 1px solid var(--border);
+    margin-bottom: 10px;
+    display: block;
+  }
+
+  .img-caption {
+    font-size: 12px;
+    color: var(--muted);
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 28px;
+  }
+
+  .body-text {
+    font-size: 17px;
+    line-height: 2;
+    color: #2a2a2a;
+    margin-bottom: 24px;
+  }
+
+  .body-text a {
+    color: var(--gold);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(200,146,42,0.3);
+  }
+
+  .body-h2 {
+    font-family: 'Noto Kufi Arabic', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--ink);
+    margin: 36px 0 14px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--ink);
+    position: relative;
+  }
+
+  .body-h2::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    right: 0;
+    width: 60px;
+    height: 2px;
+    background: var(--gold);
+  }
+
+  .steps-box {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-right: 5px solid var(--gold);
+    padding: 28px 32px;
+    margin: 32px 0;
+  }
+
+  .steps-box h3 {
+    font-family: 'Noto Kufi Arabic', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 20px;
+  }
+
+  .steps-box ol { list-style: none; counter-reset: steps; }
+
+  .steps-box ol li {
+    counter-increment: steps;
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    margin-bottom: 14px;
+    font-size: 15px;
+    line-height: 1.7;
+  }
+
+  .steps-box ol li::before {
+    content: counter(steps);
+    font-family: 'Noto Kufi Arabic', sans-serif;
+    font-weight: 900;
+    font-size: 13px;
+    color: var(--white);
+    background: var(--gold);
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .link-box {
+    background: var(--ink);
+    color: var(--white);
+    padding: 24px 28px;
+    margin: 28px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .link-box .link-label {
+    font-family: 'Noto Kufi Arabic', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--gold);
+    margin-bottom: 6px;
+  }
+
+  .link-box .link-url { font-size: 14px; color: #ccc; word-break: break-all; }
+
+  .link-box .link-btn {
+    background: var(--gold);
+    color: var(--ink);
+    padding: 10px 22px;
+    font-family: 'Noto Kufi Arabic', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: background .2s;
+    display: inline-block;
+  }
+  .link-box .link-btn:hover { background: var(--gold-light); }
+
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 36px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+  }
+
+  .tag {
+    padding: 5px 14px;
+    border: 1px solid var(--border);
+    font-size: 12px;
+    font-family: 'Noto Kufi Arabic', sans-serif;
+    color: var(--muted);
+    text-decoration: none;
+    transition: all .2s;
+  }
+  .tag:hover { background: var(--gold); color: white; border-color: var(--gold); }
+
+  /* SIDEBAR */
+  .sidebar-block { margin-bottom: 36px; }
+
+  .sidebar-title {
+    font-family: 'Noto Kufi Arabic', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    padding-bottom: 10px;
+    border-bottom: 3px solid var(--ink);
+    margin-bottom: 16px;
+    position: relative;
+  }
+
+  .sidebar-title::after {
+    content: '';
+    position: absolute;
+    bottom: -3px;
+    right: 0;
+    width: 40px;
+    height: 3px;
+    background: var(--gold);
+  }
+
+  .related-item {
+    display: flex;
+    gap: 12px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--border);
+    text-decoration: none;
+    color: inherit;
+  }
+  .related-item:last-child { border-bottom: none; }
+
+  .related-item .thumb {
+    width: 72px;
+    height: 56px;
+    object-fit: cover;
+    flex-shrink: 0;
+    background: #ddd;
+    border: 1px solid var(--border);
+  }
+
+  .related-item .title { font-size: 14px; line-height: 1.5; color: var(--ink); transition: color .2s; }
+  .related-item:hover .title { color: var(--gold); }
+
+  /* FOOTER */
+  footer {
+    background: var(--ink);
+    color: #999;
+    padding: 48px 0 24px;
+    margin-top: 60px;
+  }
+
+  .footer-inner { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 32px;
+    margin-bottom: 40px;
+  }
+
+  .footer-col h4 {
+    font-family: 'Noto Kufi Arabic', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 14px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #333;
+  }
+
+  .footer-col ul { list-style: none; }
+  .footer-col ul li { margin-bottom: 8px; }
+  .footer-col ul li a { font-size: 13px; color: #888; text-decoration: none; transition: color .2s; }
+  .footer-col ul li a:hover { color: var(--gold); }
+
+  .footer-bottom {
+    border-top: 1px solid #222;
+    padding-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer-bottom p { font-size: 12px; color: #555; line-height: 1.8; }
+  .footer-logo { font-family: 'Noto Kufi Arabic', sans-serif; font-size: 22px; font-weight: 900; color: var(--white); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    .page { grid-template-columns: 1fr; gap: 32px; }
+    .masthead-inner { grid-template-columns: 1fr; text-align: center; gap: 8px; }
+    .masthead-nav { justify-content: center; }
+    .masthead-date { display: none; }
+    .article-headline { font-size: 26px; }
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+    .ad-sidebar { width: 100%; max-width: 100%; }
+    .steps-box { padding: 20px; }
+    .link-box { flex-direction: column; align-items: flex-start; }
+  }
+
+  @media (max-width: 480px) {
+    .article-meta { gap: 10px; }
+    .article-meta .date { width: 100%; margin-right: 0; }
+    .footer-grid { grid-template-columns: 1fr; }
+  }
